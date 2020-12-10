@@ -35,7 +35,7 @@ void Graph::paintEvent(QPaintEvent *e) {
 
   QPainter qp(this);
   printVertex(&qp);
-//  qDebug() << countFrec();
+  qDebug() << countFrec();
 }
 
 void quickSort(QVector<QVector<qint32>>::iterator first,
