@@ -1,4 +1,4 @@
-<h1>Simple graph visualzer based on framework Qt5</h1>
+<h1>Simple graph visualizer based on framework Qt5</h1>
 
 ---
 <ul>

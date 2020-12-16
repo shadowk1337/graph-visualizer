@@ -11,7 +11,7 @@ public:
   explicit Graph(QVector<QString>, QWidget * = 0);
   void dataInit(QPainter *, std::map<qint32, QPointF> &,
                 std::map<qint32, QPointF> &, std::map<qint32, QPainterPath> &);
-  qint32 countFrec();
+  qint32 countFreq();
   friend void quickSort(QVector<QVector<qint32>>::iterator,
                         QVector<QVector<qint32>>::iterator);
 

@@ -35,7 +35,7 @@ void Graph::paintEvent(QPaintEvent *e) {
 
   QPainter qp(this);
   printVertex(&qp);
-  qDebug() << countFrec();
+  countFreq();
 }
 
 void quickSort(QVector<QVector<qint32>>::iterator first,
@@ -49,7 +49,13 @@ void Graph::addVertex(QVector<QString> &v) {
     auto value = i.split("--")[1].toInt();
     if (!keyCheck(key))
       exit(EXIT_FAILURE);
-    m_map[key].insert(value);
+    if (value == 0)
+      m_map[key];
+    else if (value == key) {
+      m_map[key].insert(value);
+      m_map[key].insert(value);
+    } else
+      m_map[key].insert(value);
     if (key != value && value != 0)
       m_map[value].insert(key);
   }
@@ -93,8 +99,8 @@ void Graph::printVertex(QPainter *qp) {
       }
     }
 
-    qp->setPen(QPen(colors.at(random() % static_cast<qint32>(Colors::AMAX)), 2,
-                    Qt::SolidLine));
+    qp->setPen(
+        QPen(colors.at(static_cast<qint32>(Colors::BLACK)), 2, Qt::SolidLine));
     qp->drawPath(vertex_paths[m_sorted.at(i).at(0)]);
   }
 }
@@ -106,6 +112,7 @@ void Graph::dataInit(QPainter *q, std::map<qint32, QPointF> &v,
   QPainterPath path;
   QPen line_style(colors.at(static_cast<qint32>(Colors::BLACK)), 2,
                   Qt::SolidLine);
+  qint32 ind = 1;
 
   q->translate(width() * .05, height() * .05);
   q->setRenderHint(QPainter::Antialiasing);
@@ -114,7 +121,6 @@ void Graph::dataInit(QPainter *q, std::map<qint32, QPointF> &v,
   bool first = true;
 
   for (qint32 i = 0; i < m_sorted.size(); ++i) {
-    q->setFont(QFont("Times", 20));
 
     if (first) {
       r = {width() * .4, 0, width() * .4 + rect_length / 2, (qreal)rect_width};
@@ -126,6 +132,10 @@ void Graph::dataInit(QPainter *q, std::map<qint32, QPointF> &v,
     }
 
     auto idx = m_sorted.at(i).at(0);
+    q->setFont(QFont("Times", 10));
+    q->drawText(r.ellipse_x + rect_length, r.ellipse_y + rect_width * .2,
+                QString::number(ind++));
+    q->setFont(QFont("Times", 20));
     q->drawText(r.ellipse_x + .45 * rect_length, r.ellipse_y + rect_width * .55,
                 QString::number(idx));
     path.moveTo(r.lineto_x, r.lineto_y);
@@ -136,12 +146,15 @@ void Graph::dataInit(QPainter *q, std::map<qint32, QPointF> &v,
   }
 }
 
-qint32 Graph::countFrec() {
-  qint32 count = 0;
-  for (auto it : m_sorted)
-    for (qint32 i = 1; i < it.size(); ++i)
-      count++;
-  return count;
+qint32 Graph::countFreq() {
+  std::map<qint32, qint32> count;
+  for (auto it : m_sorted) {
+    count[it.size() - 1]++;
+  }
+  qDebug() << "=======";
+  for (auto p : count)
+    qDebug() << "Degree " << p.first << ": " << p.second << " times";
+  qDebug() << "=======";
 }
 
 auto partition(QVector<QVector<qint32>>::iterator first,
