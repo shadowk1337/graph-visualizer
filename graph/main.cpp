@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
   window.resize(1000, 800);
   window.setStyleSheet("background-color: white;");
   window.show();
+  window.countFreq();
   return a.exec();
 }
 

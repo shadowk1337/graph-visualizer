@@ -35,7 +35,6 @@ void Graph::paintEvent(QPaintEvent *e) {
 
   QPainter qp(this);
   printVertex(&qp);
-  countFreq();
 }
 
 void quickSort(QVector<QVector<qint32>>::iterator first,
@@ -146,7 +145,7 @@ void Graph::dataInit(QPainter *q, std::map<qint32, QPointF> &v,
   }
 }
 
-qint32 Graph::countFreq() {
+qint32 Graph::countFreq() const {
   std::map<qint32, qint32> count;
   for (auto it : m_sorted) {
     count[it.size() - 1]++;
